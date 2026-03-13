@@ -1,32 +1,23 @@
-#ifndef PILA_H
-#define PILA_H
+#ifndef __NOTY_PILA_H_PRACTICA__
 
-#include "../lista/lista.h"
+	#define __NOTY_PILA_H_PRACTICA__
 
-typedef Lista Pila;
+	#include "../lista/lista.h"
 
-Pila* pila_crear();
+	typedef List Stack;
 
-int pila_vacia(Pila* pila);
+	//	Crear y destruir.
+	Stack* newStack();
+	void deleteStack(Stack* s);
 
-/*
-TODO
-push debe insertar por tail
-*/
-void pila_push(Pila* pila, int dato);
+	//	Insertar y eliminar.
+	void stackPush(Stack* s, int d);
+	bool stackPop(Stack* s, int* d);
+	bool stackTop(Stack* s, int* d);
 
-/*
-TODO
-pop debe eliminar por tail
-*/
-int pila_pop(Pila* pila);
-
-/*
-TODO
-regresa elemento superior (tail)
-*/
-int pila_top(Pila* pila);
-
-void pila_destruir(Pila* pila);
+	//	Auxiliares.
+	static inline bool stackIsEmpty(Stack* s) {
+		return listIsEmpty(s);
+	}
 
 #endif

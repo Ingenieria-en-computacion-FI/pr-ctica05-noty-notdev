@@ -1,12 +1,15 @@
-#ifndef NODO_H
-#define NODO_H
+#ifndef __NOTY_NODO_H_PRACTICA__
 
-typedef struct Nodo {
-    int dato;
-    struct Nodo* siguiente;
-} Nodo;
+	#define __NOTY_NODO_H_PRACTICA__
 
-Nodo* nodo_crear(int dato);
-void nodo_destruir(Nodo* nodo);
+	typedef struct Node {
+		int data;
+
+		struct Node* last;
+		struct Node* next;
+	} Node;
+
+	Node* newNode(int d);
+	void deleteNode(Node* n);
 
 #endif

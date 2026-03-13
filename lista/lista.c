@@ -2,109 +2,121 @@
 #include <stdlib.h>
 #include "lista.h"
 
-Lista* lista_crear()
-{
-    
-    /*
-    TODO:
 
-    1 Crear un apuntador a lista
-    2 Reswevar memoria para lista
-    3 Devolver la lista
-    */
+//	Crear y destruir lista.
+List* newList() {
+	List*  l = (List*) malloc(sizeof(List));
+	if(!l) return NULL;
+
+	Node* h = newNode(0);
+	Node* t = newNode(0);
+
+	if(!h || !t) {
+		deleteNode(h);
+		deleteNode(t);
+		free(l);
+
+		return NULL;
+	}
+
+	h->last = t->last = h;
+	h->next = t->next = t;
+	
+	*l = (List) {h, t};
+
+	return l;
+
 }
 
-int lista_vacia(Lista* lista)
-{
-    
+void  deleteList(List* l) {
+	if(!l) return;
+
+	listEmpty(l);
+	
+	deleteNode(l->head);
+	deleteNode(l->tail);
+	free(l);
 }
 
-void lista_insertar_head(Lista* lista, int dato)
-{
-    /*
-    TODO:
 
-    1 Crear nuevo nodo
-    2 Si lista está vacía:
-        head y tail apuntan al nuevo nodo
-    3 Si no:
-        head apunta al nuevo nodo
-        actualizar tail
-    */
+//	Insertar en la lista.
+void listPushFront(List* l, int d) {
+	Node* n;
+	if(!l || !(n = newNode(d))) return;
+	
+	n->next = l->head->next;
+	n->next->last = l->head->next = n;
+
+	n->last = l->head;
 }
 
-void lista_insertar_tail(Lista* lista, int dato)
-{
-    /*
-    TODO:
+void listPushBack(List* l, int d) {
+	Node* n;
+	if(!l || !(n = newNode(d))) return;
+	
+	n->last = l->tail->last;
+	n->last->next = l->tail->last = n;
 
-    1 Crear nuevo nodo
-    2 Si lista está vacía:
-        head y tail apuntan al nuevo nodo
-    3 Si no:
-        tail->siguiente apunta al nuevo nodo
-        actualizar tail
-    */
+	n->next = l->tail;
 }
 
-int lista_eliminar_head(Lista* lista)
-{
-    /*
-    TODO:
 
-    1 Si lista vacía regresar error (-1)
-    2 Guardar nodo a eliminar
-    3 Mover head al siguiente nodo
-    4 Si lista queda vacía:
-       tail = NULL
-    5 Liberar nodo
-    6 Regresar dato eliminado
-    */
+//	Eliminar de la lista.
+bool listPopFront(List* l, int* d) {
+	//	La API supone que la lista no debe ser nuls
+	if(!l || listIsEmpty(l)) return false;
 
-    return -1;
+	Node* n = l->head->next;
+	l->head->next = n->next;
+	n->next->last = l->head;
+
+	*d = n->data;
+	deleteNode(n);
+
+	return true;
 }
 
-int lista_eliminar_tail(Lista* lista)
-{
-    /*
-    TODO:
+bool listPopBack(List* l, int* d) {
+	if(!l || listIsEmpty(l)) return false;
 
-    1 Si lista vacía regresar error
-    2 Si solo hay un nodo:
-        guardar dato
-        liberar nodo
-        head = NULL
-        tail = NULL
-    3 Si hay varios nodos:
-        recorrer lista hasta el nodo anterior al tail
-    4 actualizar tail
-    5 liberar nodo eliminado
-    6 regresar dato
-    */
+	Node* n = l->tail->last;
+	l->tail->last = n->last;
+	n->last->next = l->tail;
 
-    return -1;
+	*d = n->data;
+	deleteNode(n);
+
+	return true;
 }
 
-void lista_imprimir(Lista* lista)
-{
-    Nodo* actual = lista->head;
+//	Funciones auxiliares.
+void listEmpty(List* l) {
+	if(!l) return;
 
-    while(actual != NULL)
-    {
-        printf("%d -> ", actual->dato);
-        actual = actual->siguiente;
-    }
+	Node* n = l->head->next;
+	while(n != l->tail) {
+		Node* tmp = n->next;
+		deleteNode(n);
+		n = tmp;
+	}
 
-    printf("NULL\n");
+	l->head->next = l->tail;
+	l->tail->last = l->head;
 }
 
-void lista_destruir(Lista* lista)
-{
-    /*
-    TODO:
+void printList(List* l) {
+	if(!l) {
+		fprintf(stderr, "La lista a imprimir, no existe.\n");
+		return;
+	}
 
-    1 si la lista no esta vacia
-    2 borrar el primero o el último 
-    3 hacer que lista apunte a nulo
-    */
+	printf("[ ");
+	
+	Node* n = l->head;
+	while(n->next != l->tail) 
+		printf("%d, ", (n = n->next)->data);
+
+	puts("\b\b ]");
 }
+
+

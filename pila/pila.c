@@ -1,49 +1,30 @@
 #include "pila.h"
 
-Pila* pila_crear()
-{
-    /*
-    TODO
-    usar crear lista
-    */
+
+//	Crear y destruir.
+Stack* newStack() {
+	return newList();
 }
 
-int pila_vacia(Pila* pila)
-{
-    /*
-    TODO
-    usar lista_vacia
-    */
+void deleteStack(Stack* s) {
+	deleteList(s);
 }
 
-void pila_push(Pila* pila, int dato)
-{
-    /*
-    TODO
-    usar lista_insertar_tail
-    */
+
+//	Insertar y eliminar.
+void stackPush(Stack* s, int d) {
+	listPushFront(s, d);
 }
 
-int pila_pop(Pila* pila)
-{
-    /*
-    TODO
-    usar lista_eliminar_tail
-    */
-    return -1;
+bool stackPop(Stack* s, int* d) {
+	return listPopFront(s, d);
 }
 
-int pila_top(Pila* pila)
-{
-    /*
-    TODO
-    regresar dato del tail
-    */
-    return -1;
+bool stackTop(Stack* s, int* d) {
+	if(!s || stackIsEmpty(s)) return false;
+	*d = s->head->next->data;
+
+	return true;
 }
 
-void pila_destruir(Pila* pila)
-{
-    // TODO
-    // Usar lista destruir
-}
+

@@ -1,39 +1,33 @@
-#ifndef LISTA_H
-#define LISTA_H
+#ifndef __NOTY_LISTA_H_PRACTICA__
 
-#include "../nodo/nodo.h"
+	#define __NOTY_LISTA_H_PRACTICA__
 
-typedef struct {
-    Nodo* head;
-    Nodo* tail;
-} Lista;
+	#include <stdbool.h>
+	#include "../nodo/nodo.h"
 
-Lista* lista_crear();
+	typedef struct {
+	    Node* head;
+	    Node* tail;
+	} List;
 
-int lista_vacia(Lista* lista);
+	//	Crear y destruir lista.
+	List* newList();
+	void  deleteList(List* l);
 
-void lista_insertar_head(Lista* lista, int dato);
+	//	Insertar en la lista.
+	void listPushFront(List* l, int d);
+	void listPushBack(List* l, int d);
 
-/*
-TODO
-Inserta al final usando tail
-*/
-void lista_insertar_tail(Lista* lista, int dato);
+	//	Eliminar de la lista.
+	bool listPopFront(List* l, int* d);
+	bool listPopBack(List* l, int* d);
 
-/*
-TODO
-Eliminar del inicio
-*/
-int lista_eliminar_head(Lista* lista);
-
-/*
-TODO
-Eliminar del final
-*/
-int lista_eliminar_tail(Lista* lista);
-
-void lista_imprimir(Lista* lista);
-
-void lista_destruir(Lista* lista);
+	//	Funciones auxiliares.
+	void listEmpty(List* l);
+	void printList(List* l);
+	
+	static inline bool listIsEmpty(List* l) {
+		return l->head->next == l->tail;
+	}
 
 #endif

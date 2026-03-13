@@ -1,32 +1,23 @@
 #ifndef COLA_H
-#define COLA_H
 
-#include "../lista/lista.h"
+	#define COLA_H
 
-typedef Lista Cola;
+	#include "../lista/lista.h"
 
-Cola* cola_crear();
+	typedef List Queue;
 
-int cola_vacia(Cola* cola);
+	//	Crear y destruir.
+	Queue* newQueue();
+	void deleteQueue(Queue* q);
 
-/*
-TODO
-insertar por tail
-*/
-void cola_enqueue(Cola* cola, int dato);
+	//	Insertar e eliminar.
+	void queueEnqueue(Queue* q, int d);
+	bool queueDequeue(Queue* q, int* d);
+	bool queueFront(Queue* q, int* d);
 
-/*
-TODO
-eliminar por head
-*/
-int cola_dequeue(Cola* cola);
-
-/*
-TODO
-regresar frente (head)
-*/
-int cola_frente(Cola* cola);
-
-void cola_destruir(Cola* cola);
+	//	Auxiliares.
+	static inline bool queueIsEmpty(Queue* q) {
+		return listIsEmpty(q);
+	}
 
 #endif

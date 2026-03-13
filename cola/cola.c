@@ -1,48 +1,30 @@
 #include "cola.h"
 
-Cola* cola_crear()
-{
-    return lista_crear();
+
+//	Crear y destruir.
+Queue* newQueue() {
+	return newList();
 }
 
-int cola_vacia(Cola* cola)
-{
-    /*
-    TODO
-    usar vaciar_lista
-    */
+void deleteQueue(Queue* q){
+	deleteList(q);
 }
 
-void cola_enqueue(Cola* cola, int dato)
-{
-    /*
-    TODO
-    usar lista_insertar_tail
-    */
+
+//	Insertar e eliminar.
+void queueEnqueue(Queue* q, int d) {
+	listPushFront(q, d);
 }
 
-int cola_dequeue(Cola* cola)
-{
-    /*
-    TODO
-    usar lista_eliminar_head
-    */
-    return -1;
+bool queueDequeue(Queue* q, int* d) {
+	return listPopBack(q, d);
 }
 
-int cola_frente(Cola* cola)
-{
-    /*
-    TODO
-    regresar dato del head
-    */
-    return -1;
+bool queueFront(Queue* q, int* d) {
+	if(!q || queueIsEmpty(q)) return false;
+	*d = q->tail->last->data;
+
+	return true;
 }
 
-void cola_destruir(Cola* cola)
-{
-    /*
-    TODO
-    usar lista_destruir
-    */
-}
+
