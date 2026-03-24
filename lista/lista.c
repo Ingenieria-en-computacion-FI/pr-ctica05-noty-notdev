@@ -19,8 +19,8 @@ List* newList() {
 		return NULL;
 	}
 
-	h->last = t->last = h;
-	h->next = t->next = t;
+	t->last = t->next = h;
+	h->last = h->next = t;
 	
 	*l = (List) {h, t};
 

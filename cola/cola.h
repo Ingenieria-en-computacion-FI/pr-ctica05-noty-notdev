@@ -1,6 +1,6 @@
-#ifndef COLA_H
+#ifndef __NOTY_COLA__PRACTICA_H__
 
-	#define COLA_H
+	#define __NOTY_COLA_PRACTICA_H__
 
 	#include "../lista/lista.h"
 

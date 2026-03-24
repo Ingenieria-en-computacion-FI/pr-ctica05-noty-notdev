@@ -1,30 +1,36 @@
 #include <stdio.h>
-#include "pila/pila.h"
-#include "cola/cola.h"
+
+#define __NOTY_ANILLO_BY_DEFINE__
+#include "anillo/anillo.h"
+
+#define __NOTY_COLA_D_BY_DEFINE__
+#include "cola-d/cola-d.h"
 
 int main() {
-	Stack* s = newStack();
-	Queue* q = newQueue();
+	Ring* r   = newRing();
+	Deque* dq = newDeque();
 
-	stackPush(s, 10);
-	stackPush(s, 20);
-	stackPush(s, 30);
-	stackPush(s, 40);
-	stackPush(s, 50);
-	printList(s);
+	for(int i = 1; i <= 10; i++) {
+		ringPushFront(r, i);
+		ringPushBack(r, 2*i);
+		
+		dequePushFront(dq, i);
+		dequePushBack(dq, 3*i);
+	}
+	printf("Anillo:\n\t");
+	printList(r);
 
+	printf("Cola Doble:\n\t");
+	printList(dq);
 
-	queueEnqueue(q, 1);
-	queueEnqueue(q, 2);
-	queueEnqueue(q, 3);
-	queueEnqueue(q, 4);
-	queueEnqueue(q, 5);
-	printList(q);
+	listEmpty(r);
+	listEmpty(dq);
 
-	printf("Repositorio compilado correctamente\n");
+	printf("El anillo esta vacio? : %s\n", (ringIsEmpty(r) ? "si" : "no"));
+	printf("La cola doble esta vacia? : %s\n", (dequeIsEmpty(dq) ? "si" : "no"));
 
-	deleteStack(s);
-	deleteStack(q);
+	deleteRing(r);
+	deleteDeque(dq);
 
 	return 0;
 }
